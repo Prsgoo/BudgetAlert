@@ -1,4 +1,4 @@
-using BudgetAlert.Domain.Abstractions;
+using BudgetAlert.Domain.Events;
 
 namespace BudgetAlert.Domain
 {
