@@ -1,0 +1,41 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "${SA_PASSWORD}"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: "${RABBITMQ_USER}"
+      RABBITMQ_DEFAULT_PASS: "${RABBITMQ_PASS}"
+
+  api:
+    build:
+      context: .
+      dockerfile: src/BudgetAlert.Api/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      ConnectionStrings__Default: "Server=sqlserver;Database=BudgetAlert;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True"
+      RabbitMq__Host: "rabbitmq"
+    depends_on:
+      - sqlserver
+      - rabbitmq
+
+  worker:
+    build:
+      context: .
+      dockerfile: workers/BudgetAlert.Worker/Dockerfile
+    environment:
+      ConnectionStrings__Default: "Server=sqlserver;Database=BudgetAlert;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True"
+      RabbitMq__Host: "rabbitmq"
+    depends_on:
+      - sqlserver
+      - rabbitmq
