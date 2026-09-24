@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BudgetAlert.Api/BudgetAlert.Api.csproj" />
+    <Project Path="src/BudgetAlert.Application/BudgetAlert.Application.csproj" />
+    <Project Path="src/BudgetAlert.Domain/BudgetAlert.Domain.csproj" />
+    <Project Path="src/BudgetAlert.Infrastructure/BudgetAlert.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BudgetAlert.Api.Tests/BudgetAlert.Api.Tests.csproj" />
+    <Project Path="tests/BudgetAlert.Application.Tests/BudgetAlert.Application.Tests.csproj" />
+    <Project Path="tests/BudgetAlert.Domain.Tests/BudgetAlert.Domain.Tests.csproj" />
+    <Project Path="tests/BudgetAlert.Infrastructure.Tests/BudgetAlert.Infrastructure.Tests.csproj" />
+  </Folder>
+  <Folder Name="/workers/">
+    <Project Path="workers/BudgetAlert.Worker/BudgetAlert.Worker.csproj" />
+  </Folder>
+</Solution>

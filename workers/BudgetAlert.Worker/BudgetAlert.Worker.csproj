@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-BudgetAlert.Worker-441da1e9-1ea8-4ac7-9913-aefa4620f840</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MassTransit.RabbitMQ" Version="9.2.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BudgetAlert.Application\BudgetAlert.Application.csproj" />
+    <ProjectReference Include="..\..\src\BudgetAlert.Infrastructure\BudgetAlert.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>
