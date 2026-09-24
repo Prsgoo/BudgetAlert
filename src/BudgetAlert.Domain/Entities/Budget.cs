@@ -31,7 +31,15 @@ namespace BudgetAlert.Domain.Entities
         {
             var transaction = Transaction.Create(Id, amount, description, occurredAt);
             _transactions.Add(transaction);
-            // TODO(jrojas): raise TransactionRegistered event (#PRS-80)
+            AddDomainEvent(new Events.TransactionRegistered(
+                EventId: Guid.NewGuid(),
+                OccurredAt: DateTime.UtcNow,
+                BudgetId: Id,
+                TransactionId: transaction.Id,
+                Amount: amount,
+                CurrentSpend: CurrentSpend,
+                BudgetLimit: Limit
+            ));
         }
 
         public decimal CurrentSpend => Transactions.Sum(t => t.Amount);
