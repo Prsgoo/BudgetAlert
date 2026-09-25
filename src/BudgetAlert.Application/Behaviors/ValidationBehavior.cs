@@ -7,14 +7,14 @@ namespace BudgetAlert.Application.Behaviors
     public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators) : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
     {
-        // If no validators registered → pass through
-        // If validators exist → run all, collect failures, throw if any
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             if(!validators.Any()) return await next(cancellationToken);
 
             var failures = new List<ValidationFailure>();
 
+            // Run all validators before throwing so the caller gets every failure at once,
+            // not just the first one. Short-circuiting would force multiple round-trips to fix errors.
             foreach(var validator in validators)
             {
                 var validationResult = await validator.ValidateAsync(request, cancellationToken);

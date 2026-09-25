@@ -5,10 +5,8 @@ using MediatR;
 
 namespace BudgetAlert.Application.Budgets.Commands
 {
-    // Command
     public record CreateBudgetCommand(string Name, decimal Limit, string Currency) : IRequest<Guid>;
 
-    // Validator
     public class CreateBudgetCommandValidator : AbstractValidator<CreateBudgetCommand>
     {
         public CreateBudgetCommandValidator()
@@ -19,7 +17,6 @@ namespace BudgetAlert.Application.Budgets.Commands
         }
     }
 
-    // Handler
     public class CreateBudgetCommandHandler(IBudgetRepository _budgetRepository, IUnitOfWork _unitOfWork) : IRequestHandler<CreateBudgetCommand, Guid>
     {
         public async Task<Guid> Handle(CreateBudgetCommand request, CancellationToken cancellationToken)

@@ -1,4 +1,5 @@
 using BudgetAlert.Application.Exceptions;
+using BudgetAlert.Domain.Entities;
 using BudgetAlert.Domain.Repositories;
 using FluentValidation;
 using MediatR;
@@ -20,7 +21,7 @@ namespace BudgetAlert.Application.Budgets.Commands
     {
         public async Task<Guid> Handle(AddAlertRuleCommand request, CancellationToken cancellationToken)
         {
-            var budget = await _budgetRepository.GetByIdAsync(request.BudgetId, cancellationToken) ?? throw new NotFoundException("Budget", request.BudgetId);
+            var budget = await _budgetRepository.GetByIdAsync(request.BudgetId, cancellationToken) ?? throw new NotFoundException(nameof(Budget), request.BudgetId);
             var guid = budget.AddAlertRule(request.ThresholdPercentage);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return guid;
