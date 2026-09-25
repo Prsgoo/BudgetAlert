@@ -42,6 +42,13 @@ namespace BudgetAlert.Domain.Entities
             ));
         }
 
+        public Guid AddAlertRule(decimal thresholdPercentage)
+        {
+            var alertRule = AlertRule.Create(Id, thresholdPercentage);
+            _alertRules.Add(alertRule);
+            return alertRule.Id;
+        }
+
         public decimal CurrentSpend => Transactions.Sum(t => t.Amount);
     }
 }
