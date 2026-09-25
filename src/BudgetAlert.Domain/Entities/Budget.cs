@@ -50,5 +50,7 @@ namespace BudgetAlert.Domain.Entities
         }
 
         public decimal CurrentSpend => Transactions.Sum(t => t.Amount);
+
+        public decimal SpendPercentage => Limit == 0 ? 0 : (CurrentSpend / Limit) * 100;
     }
 }
